@@ -291,8 +291,9 @@
         <!-- Step 6: Success -->
         <div v-if="currentStep === 6" class="flex flex-col items-center justify-center h-full text-center">
           <div
-            class="w-48 h-48 bg-gradient-to-br from-blue-600 to-blue-700 rounded-full flex items-center justify-center mb-2 text-white text-6xl">
-            <i class="fas fa-rocket"></i>
+            class="w-48 h-48 bg-orange-600 rounded-full flex items-center justify-center mb-2 text-white text-6xl">
+            <!-- <i class="fas fa-rocket"></i> -->
+            <Icon icon="mdi:rocket-launch" class="w-30 h-30" />
           </div>
           <h1 class="text-3xl font-bold text-gray-900 mb-3">You’re All Set! 🎉</h1>
           <p class="text-lg text-gray-700 mb-2">Welcome aboard, {{ user.name }}! Let’s start planning your posts.</p>
@@ -342,12 +343,6 @@ import { useRouter } from 'vue-router'
 import { router } from '@inertiajs/vue3';
 import { Icon } from '@iconify/vue'
 import { watch } from 'vue';
-
-watch(currentStep, (newStep) => {
-  if (newStep === 6) {
-    createConfetti();
-  }
-});
 
 
 // const router = useRouter()
@@ -483,6 +478,15 @@ const skipStep = () => {
     currentStep.value++;
   }
 };
+
+
+
+watch(currentStep, (newStep) => {
+  if (newStep === 6) {
+    createConfetti();
+  }
+});
+
 
 // Mock API Methods
 const loginWithGoogle = () => {
