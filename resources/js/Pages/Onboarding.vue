@@ -137,7 +137,10 @@
               }" @click="connectPlatform(platform.id)">
               <div class="w-16 h-16 rounded-full flex items-center justify-center mb-2 text-white text-2xl"
                 :class="platform.bgClass">
-                <i :class="platform.icon"></i>
+                <!-- <i :class="platform.icon"></i> -->
+                <div :class="platform.color">
+                  <Icon :icon="platform.icon" class="w-10 h-10" />
+                  </div>
               </div>
               <div class="font-semibold mb-3">{{ platform.name }}</div>
               <button class="px-4 py-2 rounded-lg font-medium text-sm transition-colors duration-200" :class="{
@@ -149,9 +152,9 @@
             </div>
           </div>
 
-          <a href="#" class="text-center mt-auto text-blue-600 font-medium hover:underline" @click.prevent="nextStep">
+          <!-- <a href="#" class="text-center mt-auto text-blue-600 font-medium hover:underline" @click.prevent="nextStep">
             Skip for now
-          </a>
+          </a> -->
         </div>
 
         <!-- Step 3: Schedule Demo -->
@@ -322,11 +325,11 @@
             {{ currentStep === 5 ? 'Complete Setup' : 'Continue' }}
           </button>
 
-          <button v-if="currentStep === 6"
+          <!-- <button v-if="currentStep === 6"
             class="px-8 py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-colors duration-200"
             @click="goToDashboard">
             Go to Dashboard
-          </button>
+          </button> -->
         </div>
       </div>
     </div>
@@ -337,6 +340,14 @@
 import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router'
 import { router } from '@inertiajs/vue3';
+import { Icon } from '@iconify/vue'
+import { watch } from 'vue';
+
+watch(currentStep, (newStep) => {
+  if (newStep === 6) {
+    createConfetti();
+  }
+});
 
 
 // const router = useRouter()
@@ -366,13 +377,25 @@ const steps = [
 ];
 
 // Platforms data
-const platforms = [
-  { id: 'instagram', name: 'Instagram', icon: 'fab fa-instagram', bgClass: 'bg-pink-600' },
-  { id: 'facebook', name: 'Facebook', icon: 'fab fa-facebook-f', bgClass: 'bg-blue-600' },
-  { id: 'twitter', name: 'X (Twitter)', icon: 'fab fa-x-twitter', bgClass: 'bg-black' },
-  { id: 'linkedin', name: 'LinkedIn', icon: 'fab fa-linkedin-in', bgClass: 'bg-blue-700' },
-  { id: 'tiktok', name: 'TikTok', icon: 'fab fa-tiktok', bgClass: 'bg-black' }
-];
+// const platforms = [
+//   { id: 'instagram', name: 'Instagram', icon: 'fab fa-instagram', bgClass: 'bg-pink-600' },
+//   { id: 'facebook', name: 'Facebook', icon: 'fab fa-facebook-f', bgClass: 'bg-blue-600' },
+//   { id: 'twitter', name: 'X (Twitter)', icon: 'fab fa-x-twitter', bgClass: 'bg-black' },
+//   { id: 'linkedin', name: 'LinkedIn', icon: 'fab fa-linkedin-in', bgClass: 'bg-blue-700' },
+//   { id: 'tiktok', name: 'TikTok', icon: 'fab fa-tiktok', bgClass: 'bg-black' }
+// ];
+
+const platforms = ref([
+  { id: 'facebook', name: "Facebook", icon: "logos:facebook", color: "text-blue-600" },
+  {  id: 'instagram',name: "Instagram", icon: "skill-icons:instagram", color: "text-pink-500" },
+  {  id: 'linkedin',name: "LinkedIn", icon: "logos:linkedin-icon", color: "text-blue-700" },
+  { id: 'twitter',name: "X", icon: "logos:x", color: "text-black" },
+  { id: 'youtube', name: "YouTube", icon: "logos:youtube-icon", color: "text-red-600" },
+  { id: 'pinterest', name: "Pinterest", icon: "logos:pinterest", color: "text-red-500" },
+  { id: 'tiktok', name: "TikTok", icon: "logos:tiktok-icon", color: "text-black" }
+])
+
+
 
 // Plans data
 const plans = [
@@ -496,7 +519,7 @@ const selectPlan = (planId) => {
 
 const goToDashboard = () => {
   console.log('Going to dashboard');
-  createConfetti();
+  // createConfetti();
   router.visit('/dashboard');
   // In real app: window.location.href = '/dashboard';
 };
