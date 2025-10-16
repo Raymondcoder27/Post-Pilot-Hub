@@ -16,7 +16,9 @@
                 :key="index" 
                 :class="`flex items-center px-3 py-1 rounded-full bg-gray-50 ${platform.color}`"
               >
-                <component :is="platform.icon" class="w-5 h-5" />
+                <!-- <component :is="platform.icon" class="w-5 h-5" /> -->
+                <Icon :icon="platform.icon" class="w-5 h-5" />
+
                 <span class="ml-2 text-sm font-medium text-gray-700">{{ platform.name }}</span>
               </div>
             </div>
@@ -69,7 +71,8 @@
                   class="flex items-center space-x-3"
                 >
                   <div :class="`w-10 h-10 ${account.bgColor} rounded-lg flex items-center justify-center`">
-                    <component :is="account.icon" :class="`w-5 h-5 ${account.textColor}`" />
+                    <!-- <component :is="account.icon" :class="`w-5 h-5 ${account.textColor}`" /> -->
+                    <Icon :icon="account.icon" :class="`w-5 h-5 ${account.textColor}`" />
                   </div>
                   <div class="flex-1">
                     <div class="font-medium">{{ account.name }}</div>
@@ -164,6 +167,7 @@
 
 <script setup>
 import { ref, computed } from 'vue'
+import { Icon } from '@iconify/vue'
 // import { useRouter } from 'vue-router'
 import { useAuthStore } from '../stores/auth'
 import Facebook from './icons/Facebook.vue'
@@ -269,23 +273,44 @@ const selectPlan = (planName) => {
   }
 }
 
+// const platforms = ref([
+//   { name: "Facebook", icon: Facebook, color: "text-blue-600" },
+//   { name: "Instagram", icon: Instagram, color: "text-pink-500" },
+//   { name: "LinkedIn", icon: Linkedin, color: "text-blue-700" },
+//   { name: "X", icon: Twitter, color: "text-black" },
+//   { name: "YouTube", icon: Youtube, color: "text-red-600" },
+//   { name: "Pinterest", icon: 'div', color: "text-red-500" },
+//   { name: "TikTok", icon: Music, color: "text-black" }
+// ])
+
 const platforms = ref([
-  { name: "Facebook", icon: Facebook, color: "text-blue-600" },
-  { name: "Instagram", icon: Instagram, color: "text-pink-500" },
-  { name: "LinkedIn", icon: Linkedin, color: "text-blue-700" },
-  { name: "X", icon: Twitter, color: "text-black" },
-  { name: "YouTube", icon: Youtube, color: "text-red-600" },
-  { name: "Pinterest", icon: 'div', color: "text-red-500" },
-  { name: "TikTok", icon: Music, color: "text-black" }
+  { name: "Facebook", icon: "logos:facebook", color: "text-blue-600" },
+  { name: "Instagram", icon: "skill-icons:instagram", color: "text-pink-500" },
+  { name: "LinkedIn", icon: "logos:linkedin-icon", color: "text-blue-700" },
+  { name: "X", icon: "logos:x", color: "text-black" },
+  { name: "YouTube", icon: "logos:youtube-icon", color: "text-red-600" },
+  { name: "Pinterest", icon: "logos:pinterest", color: "text-red-500" },
+  { name: "TikTok", icon: "logos:tiktok-icon", color: "text-black" }
 ])
 
-const dashboardAccounts = ref([
-  { name: "Facebook Page", status: "Connected", icon: Facebook, bgColor: "bg-blue-100", textColor: "text-blue-600" },
-  { name: "Instagram Business", status: "Connected", icon: Instagram, bgColor: "bg-pink-100", textColor: "text-pink-600" },
-  { name: "LinkedIn Company", status: "Connected", icon: Linkedin, bgColor: "bg-blue-100", textColor: "text-blue-700" },
-  { name: "X (Twitter)", status: "Connected", icon: Twitter, bgColor: "bg-black", textColor: "text-white" },
-  { name: "YouTube Channel", status: "Connected", icon: Youtube, bgColor: "bg-red-100", textColor: "text-red-600" },
-  { name: "Pinterest", status: "Connected", icon: 'svg', bgColor: "bg-red-100", textColor: "text-red-500" }
-])
+
+// const dashboardAccounts = ref([
+//   { name: "Facebook Page", status: "Connected", icon: Facebook, bgColor: "bg-blue-100", textColor: "text-blue-600" },
+//   { name: "Instagram Business", status: "Connected", icon: Instagram, bgColor: "bg-pink-100", textColor: "text-pink-600" },
+//   { name: "LinkedIn Company", status: "Connected", icon: Linkedin, bgColor: "bg-blue-100", textColor: "text-blue-700" },
+//   { name: "X (Twitter)", status: "Connected", icon: Twitter, bgColor: "bg-black", textColor: "text-white" },
+//   { name: "YouTube Channel", status: "Connected", icon: Youtube, bgColor: "bg-red-100", textColor: "text-red-600" },
+//   { name: "Pinterest", status: "Connected", icon: 'svg', bgColor: "bg-red-100", textColor: "text-red-500" }
+// ])
+
+const dashboardAccounts = [
+  { name: "Facebook Page", status: "Connected", icon: "logos:facebook", bgColor: "bg-blue-100", textColor: "text-blue-600" },
+  { name: "Instagram Business", status: "Connected", icon: "skill-icons:instagram", bgColor: "bg-pink-100", textColor: "text-pink-600" },
+  { name: "LinkedIn Company", status: "Connected", icon: "logos:linkedin-icon", bgColor: "bg-blue-100", textColor: "text-blue-700" },
+  { name: "X (Twitter)", status: "Connected", icon: "logos:x", bgColor: "bg-gray-100", textColor: "text-white" },
+  { name: "YouTube Channel", status: "Connected", icon: "logos:youtube-icon", bgColor: "bg-red-100", textColor: "text-red-600" },    
+  { name: "Pinterest", status: "Connected", icon: "logos:pinterest", bgColor: "bg-red-100", textColor: "text-red-500" }
+  // { name: "Pinterest", status: "Connected", icon: 'svg', bgColor: "bg-red-100", textColor: "text-red-500" }
+]
 </script>
 

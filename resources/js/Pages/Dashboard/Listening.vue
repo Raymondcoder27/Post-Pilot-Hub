@@ -1,5 +1,6 @@
 <!-- src/views/Listening.vue -->
 <template>
+  <DashboardLayout>
   <div class="space-y-6">
     <div class="flex items-center justify-between">
       <div>
@@ -69,10 +70,12 @@
       </div>
     </div>
   </div>
+  </DashboardLayout>
 </template>
 
 <script setup>
 import { ref } from 'vue'
+import DashboardLayout from '@/Components/dashboard/DashboardLayout.vue'
 
 const trackedKeywords = ref(['PostPilot', '#SocialMedia', 'AI scheduling'])
 

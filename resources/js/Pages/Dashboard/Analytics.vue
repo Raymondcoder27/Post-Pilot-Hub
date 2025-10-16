@@ -1,4 +1,5 @@
 <template>
+  <DashboardLayout>
   <div class="space-y-6">
     <!-- Header -->
     <div class="flex items-center justify-between">
@@ -234,10 +235,12 @@
       </div>
     </div>
   </div>
+  </DashboardLayout>
 </template>
 
 <script setup>
 import { ref } from 'vue'
+import DashboardLayout from '@/Components/dashboard/DashboardLayout.vue'
 
 const analyticsData = ref({
   audience: {

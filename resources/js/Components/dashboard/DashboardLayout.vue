@@ -1,9 +1,8 @@
 <template>
   <div class="min-h-screen bg-gray-50">
     <!-- Top Header -->
-    <header class="bg-white border-b border-gray-200 sticky top-0 z-50">
+    <!-- <header class="bg-white border-b border-gray-200 sticky top-0 z-50">
       <div class="flex items-center justify-between px-4 py-3">
-        <!-- Left side - User info -->
         <div class="flex items-center space-x-4">
           <div class="w-8 h-8 bg-orange-500 rounded flex items-center justify-center">
             <Check class="w-5 h-5 text-white" />
@@ -22,7 +21,6 @@
               <ChevronDown class="w-4 h-4" />
             </button>
 
-            <!-- User Dropdown -->
             <div v-if="showUserDropdown"
               class="absolute top-full left-0 mt-2 w-64 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
               <a href="#" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
@@ -101,7 +99,6 @@
           </div>
         </div>
 
-        <!-- Right side - Actions -->
         <div class="flex items-center space-x-4">
           <button
             class="bg-orange-500 text-white px-4 py-2 rounded-lg flex items-center space-x-2 hover:bg-orange-600 transition-colors">
@@ -128,7 +125,83 @@
           </div>
         </div>
       </div>
+    </header> -->
+
+
+    <header class="bg-white shadow-md sticky top-0 z-50">
+      <div class="flex items-center justify-between px-6 py-3">
+        <!-- Left: Brand / Check Icon -->
+        <div class="flex items-center space-x-4">
+          <div class="w-10 h-10 bg-orange-500 rounded-full flex items-center justify-center shadow">
+            <LayoutDashboard class="w-5 h-5 text-white" />
+          </div>
+          <span class="text-lg font-semibold text-gray-700">Dashboard</span>
+        </div>
+
+        <!-- Center: Optional Search -->
+        <div class="flex-1 mx-6 max-w-md">
+          <input type="text" placeholder="Search..."
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent" />
+        </div>
+
+        <!-- Right: User & Actions -->
+        <div class="flex items-center space-x-4">
+          <!-- Notifications -->
+          <button class="relative p-2 text-gray-500 hover:text-gray-700 transition-colors">
+            <Bell class="w-5 h-5" />
+            <span
+              class="absolute top-0 right-0 inline-block w-2 h-2 bg-red-500 rounded-full border-2 border-white"></span>
+          </button>
+
+          <!-- Upgrade Button -->
+          <button
+            class="bg-orange-500 text-white px-4 py-2 rounded-lg flex items-center space-x-2 hover:bg-orange-600 transition-colors">
+            <Upgrade class="w-4 h-4" />
+            <span>Upgrade</span>
+          </button>
+
+          <!-- User Dropdown -->
+          <div class="relative">
+            <button @click="showUserDropdown = !showUserDropdown"
+              class="flex items-center space-x-2 bg-gray-100 hover:bg-gray-200 rounded-full px-3 py-1 transition-colors">
+              <div v-if="user"
+                class="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center text-sm font-medium">
+                {{ user.avatar }}
+              </div>
+              <div v-if="user" class="text-left">
+                <div class="text-sm font-medium">{{ user.name }}</div>
+                <div class="text-xs text-gray-500">{{ user.timezone }}</div>
+              </div>
+              <ChevronDown class="w-4 h-4 text-gray-500" />
+            </button>
+
+            <!-- Dropdown Menu -->
+            <div v-if="showUserDropdown"
+              class="absolute right-0 mt-2 w-64 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
+              <a href="#" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md">
+                <HelpCircle class="w-4 h-4 mr-3" /> FAQs
+              </a>
+              <a href="#" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md">
+                <Newspaper class="w-4 h-4 mr-3" /> What's New
+              </a>
+              <a href="#" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md">
+                <Map class="w-4 h-4 mr-3" /> Roadmap
+              </a>
+              <div class="border-t border-gray-100 my-2"></div>
+              <a href="#" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md">
+                <Video class="w-4 h-4 mr-3" /> Tutorials
+              </a>
+              <a href="#" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md">
+                <Users class="w-4 h-4 mr-3" /> Community
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
     </header>
+
+
+
 
     <div class="flex">
       <!-- Sidebar -->
@@ -138,109 +211,106 @@
           <nav class="space-y-2">
             <!-- Dashboard -->
             <Link href="/dashboard"
-              class="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-700 transition-colors">
-            <Check class="w-5 h-5" />
+              class="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-700 transition-colors"
+              :class="{ 'bg-orange-500 text-white': $page.url.startsWith('/dashboard') }">
+            <LayoutDashboard class="w-5 h-5 text-white" />
             <span v-if="!sidebarCollapsed">Dashboard</span>
             </Link>
 
             <!-- Calendar -->
             <!-- <router-link to="/calendar"
               class="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-700 transition-colors"
-              :class="{ 'bg-orange-500': $route.path === '/calendar' }">
+              :class="{ 'bg-orange-500 text-white': $page.url.startsWith('/calendar') }">
               <Calendar class="w-5 h-5" />
               <span v-if="!sidebarCollapsed">Calendar</span>
             </router-link> -->
-            <Link to="/calendar"
+            <Link href="/calendar"
               class="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-700 transition-colors"
-              :class="{ 'bg-orange-500': '' }">
-              <Calendar class="w-5 h-5" />
-              <span v-if="!sidebarCollapsed">Calendar</span>
+              :class="{ 'bg-orange-500 text-white': $page.url.startsWith('/calendar') }">
+            <Calendar class="w-5 h-5" />
+            <span v-if="!sidebarCollapsed">Calendar</span>
             </Link>
-            
+
 
             <!-- Publish -->
             <!-- <router-link to="/publish"
               class="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-700 transition-colors"
-              :class="{ 'bg-orange-500': $route.path === '/publish' }">
+              :class="{ 'bg-orange-500': $page.url.startsWith('/publish') }">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                   d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
               </svg>
               <span v-if="!sidebarCollapsed">Publish</span>
             </router-link> -->
-            <Link to="/publish"
-              class="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-700 transition-colors"
-              :class="{ 'bg-orange-500': '' }">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-              </svg>
-              <span v-if="!sidebarCollapsed">Publish</span>
+            <Link href="/publish" class="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-700 transition-colors"
+              :class="{ 'bg-orange-500 text-white': $page.url.startsWith('/publish') }">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+            </svg>
+            <span v-if="!sidebarCollapsed">Publish</span>
             </Link>
 
             <!-- Analytics -->
             <!-- <router-link to="/analytics"
               class="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-700 transition-colors"
-              :class="{ 'bg-orange-500': $route.path === '/analytics' }">
+              :class="{ 'bg-orange-500': $page.url.startsWith('/analytics') }">
               <BarChart3 class="w-5 h-5" />
               <span v-if="!sidebarCollapsed">Analytics</span>
             </router-link> -->
-            <Link to="/analytics"
+            <Link href="/analytics"
               class="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-700 transition-colors"
-              :class="{ 'bg-orange-500': '' }">
-              <BarChart3 class="w-5 h-5" />
-              <span v-if="!sidebarCollapsed">Analytics</span>
+              :class="{ 'bg-orange-500 text-white': $page.url.startsWith('/analytics') }">
+            <BarChart3 class="w-5 h-5" />
+            <span v-if="!sidebarCollapsed">Analytics</span>
             </Link>
 
             <!-- Engage -->
             <!-- <router-link to="/engage"
               class="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-700 transition-colors"
-              :class="{ 'bg-orange-500': $route.path === '/engage' }">
+              :class="{ 'bg-orange-500': $page.url.startsWith('/engage') }">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                   d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
               </svg>
               <span v-if="!sidebarCollapsed">Engage</span>
             </router-link> -->
-            <Link to="/engage"
-              class="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-700 transition-colors"
-              :class="{ 'bg-orange-500': '' }">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-              </svg>
-              <span v-if="!sidebarCollapsed">Engage</span>
+            <Link href="/engage" class="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-700 transition-colors"
+              :class="{ 'bg-orange-500 text-white': $page.url.startsWith('/engage') }">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+            </svg>
+            <span v-if="!sidebarCollapsed">Engage</span>
             </Link>
 
             <!-- Listening -->
             <!-- <router-link to="/listening"
               class="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-700 transition-colors"
-              :class="{ 'bg-orange-500': $route.path === '/listening' }">
+              :class="{ 'bg-orange-500': $page.url.startsWith('/listening') }">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                   d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
               </svg>
               <span v-if="!sidebarCollapsed">Listening</span>
             </router-link> -->
-            <Link to="/listening"
+            <Link href="/listening"
               class="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-700 transition-colors"
-              :class="{ 'bg-orange-500': '' }">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
-              </svg>
-              <span v-if="!sidebarCollapsed">Listening</span>
+              :class="{ 'bg-orange-500 text-white': $page.url.startsWith('/listening') }">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
+            </svg>
+            <span v-if="!sidebarCollapsed">Listening</span>
             </Link>
           </nav>
 
           <!-- Personal Section -->
           <div class="mt-8">
-            <div class="flex items-center justify-between p-2">
+            <div class="flex items-center justify-between p-2cursor-pointer" @click="showPersonal = !showPersonal">
               <span v-if="!sidebarCollapsed"
                 class="text-sm font-medium text-gray-400 uppercase tracking-wide">Personal</span>
-              <ChevronDown class="w-4 h-4" />
-              <!-- <ChevronDown :class="{ 'rotate-180': showPersonal }" class="w-4 h-4 transition-transform"/> -->
-              <!-- <svg v-if="!showPersonal" class="w-4 h-4 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"></svg> -->
+              <ChevronDown :class="`w-4 h-4 transition-transform duration-300 ${showPersonal ? 'rotate-180' : ''}`" />
             </div>
             <nav v-if="showPersonal" class="mt-2 space-y-1">
               <a href="#" class="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-700 transition-colors">
@@ -269,38 +339,31 @@
 
           <!-- Workspace Section -->
           <div class="mt-6">
-            <div class="flex items-center justify-between p-2">
+            <div class="flex items-center justify-between p-2 cursor-pointer" @click="showWorkspace = !showWorkspace">
               <span v-if="!sidebarCollapsed"
                 class="text-sm font-medium text-gray-400 uppercase tracking-wide">Workspace</span>
-              <ChevronDown class="w-4 h-4" />
+              <!-- <ChevronDown class="w-4 h-4" /> -->
+              <ChevronDown :class="`w-4 h-4 transition-transform duration-300 ${showWorkspace ? 'rotate-180' : ''}`" />
+
             </div>
-            <nav class="mt-2 space-y-1">
-              <!-- <router-link to="/workspace"
+            <nav class="mt-2 space-y-1" v-if="showWorkspace">
+              <Link href="/workspace"
                 class="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-700 transition-colors"
-                :class="{ 'bg-orange-500': $route.path === '/dashboard/workspace' }">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                </svg>
-                <span v-if="!sidebarCollapsed">Manage/Create New</span>
-              </router-link> -->
-              <Link to="/workspace"
-                class="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-700 transition-colors"
-                :class="{ 'bg-orange-500': '' }">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                </svg>
-                <span v-if="!sidebarCollapsed">Manage/Create New</span>
+                :class="{ 'bg-orange-500 text-white': $page.url.startsWith('/workspace') }">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+              <span v-if="!sidebarCollapsed">Manage/Create New</span>
               </Link>
-              <Link to="/accounts"
+              <Link href="/accounts"
                 class="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-700 transition-colors"
-                :class="{ 'bg-orange-500': '' }">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                </svg>
-                <span v-if="!sidebarCollapsed">Social Accounts</span>
+                :class="{ 'bg-orange-500 text-white': $page.url.startsWith('/accounts') }">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+              </svg>
+              <span v-if="!sidebarCollapsed">Social Accounts</span>
               </Link>
               <a href="#" class="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-700 transition-colors">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -309,15 +372,6 @@
                 </svg>
                 <span v-if="!sidebarCollapsed">UTM Tracking</span>
               </a>
-              <!--<router-link to="/accounts"
-                class="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-700 transition-colors"
-                :class="{ 'bg-orange-500': $route.path === '/dashboard/accounts' }">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                </svg>
-                <span v-if="!sidebarCollapsed">Social Accounts</span>
-              </router-link> -->
               <a href="#" class="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-700 transition-colors">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -392,6 +446,7 @@ import Check from '../icons/Check.vue'
 import Calendar from '../icons/Calendar.vue'
 import BarChart3 from '../icons/BarChart3.vue'
 import ChevronDown from '../icons/ChevronDown.vue'
+import { LayoutDashboard } from 'lucide-vue-next'
 import ArrowRight from '../icons/ArrowRight.vue'
 import { Link, router } from '@inertiajs/vue3'
 

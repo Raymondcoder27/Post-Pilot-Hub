@@ -1,5 +1,6 @@
 <!-- src/views/Engage.vue -->
 <template>
+  <DashboardLayout>
   <div class="space-y-6">
     <div class="flex items-center justify-between">
       <h1 class="text-2xl font-bold text-gray-900">Engagement Insights</h1>
@@ -79,10 +80,12 @@
       </div>
     </div>
   </div>
+  </DashboardLayout>
 </template>
 
 <script setup>
 import { ref } from 'vue'
+import DashboardLayout from '@/Components/dashboard/DashboardLayout.vue'
 
 const engagementPosts = ref([
   {

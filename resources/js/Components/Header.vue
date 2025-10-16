@@ -17,9 +17,11 @@
           </div>
         </nav>
         <div class="hidden md:block">
-          <button class="bg-orange-500 text-white px-6 py-2 rounded-lg hover:bg-orange-600 transition-colors font-medium">
+          <button @click="onboarding" class="bg-orange-500 text-white px-6 py-2 rounded-lg hover:bg-orange-600 transition-colors font-medium">
             Get Started
           </button>
+          <!-- <Link to="/onboarding" class="bg-orange-500 text-white px-6 py-2 rounded-lg hover:bg-orange-600 transition-colors font-medium">
+          Get Started </Link> -->
         </div>
       </div>
     </div>
@@ -27,6 +29,13 @@
 </template>
 
 <script setup>
+import Onboarding from '@/Pages/Onboarding.vue';
+import { Link, router } from '@inertiajs/vue3'
+
+const onboarding = () => {
+  router.visit('/onboarding');
+}
+
 // Header component
 </script>
 

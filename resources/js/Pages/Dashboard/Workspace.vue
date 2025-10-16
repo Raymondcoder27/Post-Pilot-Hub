@@ -1,4 +1,5 @@
 <template>
+  <DashboardLayout>
   <div class="space-y-6">
     <!-- Header -->
     <div class="flex items-center justify-between">
@@ -250,11 +251,13 @@
       </div>
     </div>
   </div>
+  </DashboardLayout>
 </template>
 
 <script setup>
 import { ref, computed } from 'vue'
 import { useAuthStore } from '../../stores/auth'
+import DashboardLayout from '@/Components/dashboard/DashboardLayout.vue'
 
 const authStore = useAuthStore()
 const { 

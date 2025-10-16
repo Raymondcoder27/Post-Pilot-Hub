@@ -25,6 +25,10 @@ Route::get('/', function () {
     ]);
 });
 
+Route::get('/onboarding', function () {
+    return Inertia::render('Onboarding');
+})->name('onboarding');
+
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -34,5 +38,37 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+Route::get('/workspace', function () {
+    return Inertia::render('Dashboard/Workspace');
+})->middleware(['auth', 'verified'])->name('workspace');
+
+Route::get('/accounts', function () {
+    return Inertia::render('Dashboard/Accounts');
+})->middleware(['auth', 'verified'])->name('accounts');
+
+Route::get('/analytics', function () {
+    return Inertia::render('Dashboard/Analytics');
+})->middleware(['auth', 'verified'])->name('analytics');
+
+Route::get('/engage', function () {
+    return Inertia::render('Dashboard/Engage');
+})->middleware(['auth', 'verified'])->name('engage');
+
+Route::get('/listening', function () {
+    return Inertia::render('Dashboard/Listening');
+}) ->middleware(['auth', 'verified'])->name('listening');
+
+Route::get('/calendar', function () {
+    return Inertia::render('Dashboard/Calendar');
+})->middleware(['auth', 'verified'])->name('calendar');
+
+Route::get('/publish', function () {
+    return Inertia::render('Dashboard/Publish');
+})->name('publish');
+// Route::get('/publish', function () {
+//     return Inertia::render('Dashboard/Publish');
+// })->middleware(['auth', 'verified'])->name('publish');
+
 
 require __DIR__.'/auth.php';

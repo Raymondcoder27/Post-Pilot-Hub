@@ -2,6 +2,9 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SocialAuthController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\PaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +17,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+
+Route::get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+// Route::post('/payments/verify', [PaymentController::class, 'verifyPayment']);
+
+
+
+// Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/auth/facebook', [SocialAuthController::class, 'redirectFacebook']);
+    Route::get('/auth/facebook/callback', [SocialAuthController::class, 'handleFacebookCallback']);
+    Route::post('/posts', [PostController::class, 'store']);
+// });
