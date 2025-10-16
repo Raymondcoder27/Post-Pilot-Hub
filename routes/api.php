@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SocialAuthController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\WaitlistController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +26,8 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 });
 
+
+Route::post('/waitlist', [WaitlistController::class, 'store']);
 
 // Route::post('/payments/verify', [PaymentController::class, 'verifyPayment']);
 
