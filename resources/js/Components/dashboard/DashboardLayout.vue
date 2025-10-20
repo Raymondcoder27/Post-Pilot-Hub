@@ -307,7 +307,7 @@
 
           <!-- Personal Section -->
           <div class="mt-8">
-            <div class="flex items-center justify-between p-2cursor-pointer" @click="showPersonal = !showPersonal">
+            <div class="flex items-center justify-between p-2 cursor-pointer" @click="showPersonal = !showPersonal">
               <span v-if="!sidebarCollapsed"
                 class="text-sm font-medium text-gray-400 uppercase tracking-wide">Personal</span>
               <ChevronDown :class="`w-4 h-4 transition-transform duration-300 ${showPersonal ? 'rotate-180' : ''}`" />

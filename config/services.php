@@ -31,4 +31,30 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+
+    'facebook' => [
+    'client_id' => env('FACEBOOK_APP_ID'),
+    'client_secret' => env('FACEBOOK_APP_SECRET'),
+    'redirect' => env('FACEBOOK_REDIRECT_URI'),
+],
+
+'linkedin' => [
+    'client_id' => env('LINKEDIN_CLIENT_ID'),
+    'client_secret' => env('LINKEDIN_CLIENT_SECRET'),
+    'redirect' => env('LINKEDIN_REDIRECT_URI'),
+],
+
+'tiktok' => [
+    'client_id' => env('TIKTOK_CLIENT_KEY'),
+    'client_secret' => env('TIKTOK_CLIENT_SECRET'),
+    'redirect' => env('TIKTOK_REDIRECT_URI'),
+],
+
+'google' => [ // used for YouTube
+    'client_id' => env('YOUTUBE_CLIENT_ID'),
+    'client_secret' => env('YOUTUBE_CLIENT_SECRET'),
+    'redirect' => env('YOUTUBE_REDIRECT_URI'),
+],
+
+
 ];

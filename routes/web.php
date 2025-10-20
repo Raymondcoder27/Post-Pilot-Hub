@@ -71,4 +71,8 @@ Route::get('/publish', function () {
 // })->middleware(['auth', 'verified'])->name('publish');
 
 
+Route::get('/google-auth', function () {
+    return Inertia::render('GoogleAuth');
+})->name('google-auth');
+
 require __DIR__.'/auth.php';

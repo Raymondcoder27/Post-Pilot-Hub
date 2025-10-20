@@ -21,7 +21,7 @@
             <h2 class="text-lg font-semibold text-gray-900 mb-4">New Post</h2>
 
             <!-- Account Selection -->
-            <div class="mb-6">
+            <!-- <div class="mb-6">
               <button @click="connectFacebook"
                 class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
                 Connect Facebook / Instagram
@@ -61,7 +61,87 @@
                 <button class="text-sm text-gray-600 hover:text-gray-800">Quick Select</button>
                 <button class="text-sm text-gray-600 hover:text-gray-800">Clear</button>
               </div>
-            </div>
+            </div> -->
+
+            <!-- Account Selection -->
+<div class="mb-6">
+  <h3 class="text-lg font-semibold mb-3">Connected Accounts</h3>
+
+  <!-- Connect Buttons -->
+  <div class="flex flex-wrap gap-3 mb-4">
+    <button @click="connectFacebook" class="flex items-center bg-blue-100 text-black px-3 py-2 rounded-lg hover:bg-blue-700 hover:text-white">
+      <Icon icon="logos:facebook" class="w-5 h-5 text-red-500 mr-2" />
+       Facebook 
+    </button>
+    <button @click="connectFacebook" class="flex items-center bg-pink-100 text-black px-3 py-2 rounded-lg hover:bg-pink-700 hover:text-white">
+      <Icon icon="skill-icons:instagram" class="w-5 h-5 text-red-500 mr-2" />
+      Instagram
+    </button>
+    <button @click="connectLinkedIn" class="flex items-center bg-blue-100 text-black px-3 py-2 rounded-lg hover:bg-blue-600 hover:text-white">
+      <Icon icon="logos:linkedin-icon" class="w-5 h-5 text-blue-500 mr-2" />
+      <!-- <span class="mr-2">in</span>  -->
+      LinkedIn
+    </button>
+    <button @click="connectTikTok" class="flex items-center bg-gray-100 text-black px-3 py-2 rounded-lg hover:bg-gray-800 hover:text-white">
+       <Icon icon="logos:tiktok-icon" class="w-5 h-5 mr-2" />
+       TikTok
+    </button>
+    <button @click="connectYouTube" class="flex items-center bg-red-100 text-black px-3 py-2 rounded-lg hover:bg-red-700 hover:text-white">
+      <!-- <span class="mr-2">▶</span>  -->
+      <Icon icon="logos:youtube-icon" class="w-5 h-5 mr-2" />
+      YouTube
+    </button>
+    <button @click="connectThreads" class="flex items-center bg-gray-100 text-black px-3 py-2 rounded-lg hover:bg-gray-900 hover:text-white">
+      <!-- <span class="mr-2">@</span>  -->
+       <Icon icon="logos:threads" class="w-5 h-5 mr-2" />
+      Threads
+    </button>
+  </div>
+
+  <!-- Dropdown for Selecting Connected Accounts -->
+  <label class="block text-sm font-medium text-gray-700 mb-2">Select Connected Accounts</label>
+  <select v-model="newAccountSelection" @change="addAccountToSelection"
+    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent">
+    <option value="">Choose account...</option>
+    <option v-for="account in availableAccounts" :key="account.id" :value="account.id">
+      {{ account.name }} ({{ account.platform }})
+    </option>
+  </select>
+
+  <!-- Display Selected Accounts -->
+  <div class="flex flex-wrap gap-2 mt-3">
+    <!-- <div v-for="(account, index) in selectedAccounts" :key="index"
+      class="flex items-center bg-gray-100 rounded-full px-3 py-1">
+      <div :class="`w-6 h-6 rounded-full flex items-center justify-center text-white text-xs
+        ${account.platform === 'facebook' ? 'bg-blue-600' :
+          account.platform === 'instagram' ? 'bg-pink-500' :
+          account.platform === 'linkedin' ? 'bg-blue-500' :
+          account.platform === 'tiktok' ? 'bg-black' :
+          account.platform === 'youtube' ? 'bg-red-600' :
+          account.platform === 'threads' ? 'bg-gray-700' : 'bg-gray-400'}`">
+        {{ account.platform.charAt(0).toUpperCase() }}
+      </div>
+      <span class="ml-2 text-sm">{{ account.name }}</span>
+      <button @click="removeAccount(index)" class="ml-2 text-gray-500 hover:text-gray-700">
+        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div> -->
+    <div v-for="(account, index) in selectedAccounts" :key="index"
+  class="flex items-center bg-gray-100 rounded-full px-3 py-1">
+  <Icon :icon="account.icon" :class="`${account.color} w-5 h-5`" />
+  <span class="ml-2 text-sm">{{ account.name }}</span>
+  <button @click="removeAccount(index)" class="ml-2 text-gray-500 hover:text-gray-700">
+    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+    </svg>
+  </button>
+</div>
+
+  </div>
+</div>
+
 
             <!-- Content Input -->
             <div class="mb-6">
@@ -245,27 +325,63 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useAuthStore } from '../../stores/auth'
 import DashboardLayout from '@/Components/dashboard/DashboardLayout.vue'
+import { Icon } from '@iconify/vue'
 
 const authStore = useAuthStore()
 const { workspaces } = authStore
 
 
-// const connectFacebook = async () => {
-//   try {
-//     const res = await fetch('/api/auth/facebook', { credentials: 'include' })
-//     const data = await res.json()
-//     window.location.href = data.url
-//   } catch (error) {
-//     console.error('Error connecting Facebook:', error)
-//   }
-// }
+const platforms = ref([
+  { id: 'facebook', name: "Facebook", icon: "logos:facebook", color: "text-blue-600" },
+  {  id: 'instagram',name: "Instagram", icon: "skill-icons:instagram", color: "text-pink-500" },
+  {  id: 'linkedin',name: "LinkedIn", icon: "logos:linkedin-icon", color: "text-blue-700" },
+  { id: 'twitter',name: "X", icon: "logos:x", color: "text-black" },
+  { id: 'youtube', name: "YouTube", icon: "logos:youtube-icon", color: "text-red-600" },
+  { id: 'pinterest', name: "Pinterest", icon: "logos:pinterest", color: "text-red-500" },
+  { id: 'tiktok', name: "TikTok", icon: "logos:tiktok-icon", color: "text-black" }
+])
+
+const facebookIcon = "logos:facebook"
+
+// onMounted(async () => {
+//   const res = await fetch('/api/connected-accounts', { credentials: 'include' })
+//   const data = await res.json()
+//   availableAccounts.value = data
+// })
+
+
+onMounted(async () => {
+  const res = await fetch('/api/connected-accounts', { credentials: 'include' })
+  const data = await res.json()
+
+  // Merge connected accounts with their platform details (icons, colors)
+  availableAccounts.value = data.map(acc => {
+    const platformMeta = platforms.value.find(p => p.id === acc.platform)
+    return {
+      ...acc,
+      icon: platformMeta?.icon || 'mdi:account',
+      color: platformMeta?.color || 'text-gray-500',
+      name: acc.account_name || acc.platform
+    }
+  })
+})
+
+
+
+
 
 const connectFacebook = () => {
   window.location.href = '/api/auth/facebook';
 }
+// const connectFacebook = () => window.location.href = '/api/auth/facebook';
+const connectLinkedIn = () => window.location.href = '/api/auth/linkedin';
+const connectTikTok = () => window.location.href = '/api/auth/tiktok';
+const connectYouTube = () => window.location.href = '/api/auth/youtube';
+const connectThreads = () => window.location.href = '/api/auth/threads';
+
 
 
 

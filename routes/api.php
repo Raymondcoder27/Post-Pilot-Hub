@@ -31,6 +31,27 @@ Route::post('/waitlist', [WaitlistController::class, 'store']);
 
 // Route::post('/payments/verify', [PaymentController::class, 'verifyPayment']);
 
+Route::prefix('auth')->group(function () {
+    Route::get('/facebook', [SocialAuthController::class, 'redirectFacebook']);
+    Route::get('/facebook/callback', [SocialAuthController::class, 'handleFacebookCallback']);
+
+    Route::get('/linkedin', [SocialAuthController::class, 'redirectLinkedIn']);
+    Route::get('/linkedin/callback', [SocialAuthController::class, 'handleLinkedInCallback']);
+
+    Route::get('/tiktok', [SocialAuthController::class, 'redirectTikTok']);
+    Route::get('/tiktok/callback', [SocialAuthController::class, 'handleTikTokCallback']);
+
+    Route::get('/youtube', [SocialAuthController::class, 'redirectYouTube']);
+    Route::get('/youtube/callback', [SocialAuthController::class, 'handleYouTubeCallback']);
+
+    Route::get('/threads', [SocialAuthController::class, 'redirectThreads']);
+    Route::get('/threads/callback', [SocialAuthController::class, 'handleThreadsCallback']);
+});
+
+Route::middleware('auth:sanctum')->get('/connected-accounts', function () {
+    return \App\Models\SocialAccount::where('user_id', auth()->id())->get();
+});
+
 
 
 // Route::middleware('auth:sanctum')->group(function () {

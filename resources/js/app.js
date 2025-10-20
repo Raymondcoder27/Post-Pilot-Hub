@@ -6,9 +6,17 @@ import { createInertiaApp } from '@inertiajs/vue3'
 import { createPinia } from 'pinia'
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers'
 import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m'
+import { Ziggy } from './ziggy'
 
 // Optional: import router if you’ve set it up
 // import router from './router'
+
+
+// override Ziggy's base URL
+Ziggy.url = 'https://5feb78432a88.ngrok-free.app'
+Ziggy.location = new URL(Ziggy.url).href
+
+
 
 const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Laravel'
 

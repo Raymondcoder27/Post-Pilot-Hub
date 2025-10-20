@@ -40,7 +40,7 @@
       </div>
     </div> -->
 
-      <!-- Replace your current progress bar section with this -->
+      <!-- Replace your current progress bar section with thfacebook pageis -->
       <div class="px-6 pt-8 pb-4">
         <div class="flex items-center justify-between relative">
           <!-- Progress line -->
@@ -66,13 +66,13 @@
                 <span v-else>{{ step.id }}</span>
               </div>
               <!-- Connector line to next step -->
-              <div v-if="index < steps.length - 1"
-                class="absolute top-1/2 right-0 w-8 h-0.5 bg-gray-200 transform translate-y-1/2"
-                :class="{ 'bg-blue-600': currentStep > step.id }"></div>
+              <!-- <div v-if="index < steps.length - 1"
+                class="absolute top-1/2 left-10 w-8 h-0.5 bg-gray-200 transform translate-y-1/2"
+                :class="{ 'bg-blue-600': currentStep > step.id }"></div> -->
             </div>
 
             <!-- Step label -->
-            <span class="text-xs font-medium text-center px-2 transition-colors duration-300" :class="{
+            <span class="text-xs pb-2 font-medium text-center px-2 transition-colors duration-300" :class="{
               'text-blue-600 font-semibold': currentStep === step.id,
               'text-green-600': currentStep > step.id,
               'text-gray-500': currentStep < step.id
@@ -95,7 +95,8 @@
             <button
               class="flex items-center justify-center gap-3 px-6 py-4 bg-white border border-gray-300 rounded-xl font-semibold text-gray-900 hover:bg-gray-50 transition-colors duration-200"
               @click="loginWithGoogle">
-              <i class="fab fa-google text-xl"></i>
+              <!-- <i class="fab fa-google text-xl"></i> -->
+              <Icon icon="logos:google" />
               Continue with Google
             </button>
             <button
@@ -387,7 +388,9 @@ const platforms = ref([
   { id: 'twitter',name: "X", icon: "logos:x", color: "text-black" },
   { id: 'youtube', name: "YouTube", icon: "logos:youtube-icon", color: "text-red-600" },
   { id: 'pinterest', name: "Pinterest", icon: "logos:pinterest", color: "text-red-500" },
-  { id: 'tiktok', name: "TikTok", icon: "logos:tiktok-icon", color: "text-black" }
+  { id: 'tiktok', name: "TikTok", icon: "logos:tiktok-icon", color: "text-black" },
+  //Google icon
+  { id: 'google', name: "Google", icon: "logos:google", color: "text-blue-600" },
 ])
 
 
