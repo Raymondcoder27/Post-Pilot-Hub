@@ -6,6 +6,8 @@ use App\Http\Controllers\SocialAuthController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\WaitlistController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\GoogleAuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -57,5 +59,6 @@ Route::middleware('auth:sanctum')->get('/connected-accounts', function () {
 // Route::middleware('auth:sanctum')->group(function () {
     Route::get('/auth/facebook', [SocialAuthController::class, 'redirectFacebook']);
     Route::get('/auth/facebook/callback', [SocialAuthController::class, 'handleFacebookCallback']);
-    Route::post('/posts', [PostController::class, 'store']);
+    // Route::post('/posts', [PostController::class, 'store']);
 // });
+

@@ -96,13 +96,14 @@
               class="flex items-center justify-center gap-3 px-6 py-4 bg-white border border-gray-300 rounded-xl font-semibold text-gray-900 hover:bg-gray-50 transition-colors duration-200"
               @click="loginWithGoogle">
               <!-- <i class="fab fa-google text-xl"></i> -->
-              <Icon icon="logos:google" />
+              <Icon icon="logos:google-icon" />
               Continue with Google
             </button>
             <button
               class="flex items-center justify-center gap-3 px-6 py-4 bg-white border border-gray-300 rounded-xl font-semibold text-gray-900 hover:bg-gray-50 transition-colors duration-200"
               @click="showEmailForm = true">
-              <i class="fas fa-envelope text-xl"></i>
+              <!-- <i class="fas fa-envelope text-xl text-black"></i> -->
+              <Icon icon="mdi:email-outline" class="text-black w-5 h-5" />
               Sign up with email
             </button>
 
@@ -116,7 +117,7 @@
             </div>
           </div>
 
-          <router-link to="/login" class="text-center mt-auto text-blue-600 font-medium hover:underline">
+          <router-link to="/login" class="text-center cursor-pointer mt-auto text-blue-600 font-medium hover:underline">
             Already have an account? Log in
           </router-link>
         </div>
@@ -390,7 +391,7 @@ const platforms = ref([
   { id: 'pinterest', name: "Pinterest", icon: "logos:pinterest", color: "text-red-500" },
   { id: 'tiktok', name: "TikTok", icon: "logos:tiktok-icon", color: "text-black" },
   //Google icon
-  { id: 'google', name: "Google", icon: "logos:google", color: "text-blue-600" },
+  { id: 'google', name: "Google", icon: "logos:google-icon", color: "text-blue-600" },
 ])
 
 
@@ -492,11 +493,21 @@ watch(currentStep, (newStep) => {
 
 
 // Mock API Methods
+// const loginWithGoogle = () => {
+//   console.log('Google login clicked');
+//   user.value.name = 'Alex Johnson';
+//   nextStep();
+// };
+
+// const loginWithGoogle = () => {
+//   window.location.href = '/auth/google';
+// }
+
+// the route is in web.php
 const loginWithGoogle = () => {
-  console.log('Google login clicked');
-  user.value.name = 'Alex Johnson';
-  nextStep();
-};
+  window.location.href = '/auth/google';
+}
+
 
 const signupWithEmail = () => {
   if (email.value) {

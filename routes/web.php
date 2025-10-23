@@ -4,6 +4,8 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\GoogleAuthController;
+use App\Http\Controllers\SocialAuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -70,9 +72,15 @@ Route::get('/publish', function () {
 //     return Inertia::render('Dashboard/Publish');
 // })->middleware(['auth', 'verified'])->name('publish');
 
+// routes/web.php
 
-Route::get('/google-auth', function () {
-    return Inertia::render('GoogleAuth');
-})->name('google-auth');
+
+Route::get('/auth/tiktok', [SocialAuthController::class, 'redirectTikTok'])->name('tiktok.redirect');
+Route::get('/auth/tiktok/callback', [SocialAuthController::class, 'handleTikTokCallback'])->name('tiktok.callback');
+
+
+
+Route::get("auth/google", [GoogleAuthController::class, "redirectToGoogle"])->name("redirectToGoogle");
+Route::get("auth/google/callback", [GoogleAuthController::class, "handleGoogleCallback"])->name("handleGoogleCallback");
 
 require __DIR__.'/auth.php';

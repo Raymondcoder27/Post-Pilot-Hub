@@ -378,11 +378,13 @@ const connectFacebook = () => {
 }
 // const connectFacebook = () => window.location.href = '/api/auth/facebook';
 const connectLinkedIn = () => window.location.href = '/api/auth/linkedin';
-const connectTikTok = () => window.location.href = '/api/auth/tiktok';
+// const connectTikTok = () => window.location.href = '/api/auth/tiktok';
 const connectYouTube = () => window.location.href = '/api/auth/youtube';
 const connectThreads = () => window.location.href = '/api/auth/threads';
 
-
+const connectTikTok = () => {
+  window.location.href = '/auth/tiktok';
+}
 
 
 const postContent = ref('')

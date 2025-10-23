@@ -14,11 +14,18 @@ class EventServiceProvider extends ServiceProvider
      *
      * @var array<class-string, array<int, class-string>>
      */
-    protected $listen = [
+     protected $listen = [
+        // 👇 Default Laravel event
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
-    ];
+
+        // 👇 Socialite TikTok driver registration
+        \SocialiteProviders\Manager\SocialiteWasCalled::class => [
+            \SocialiteProviders\TikTok\TikTokExtendSocialite::class . '@handle',
+        ],
+];
+
 
     /**
      * Register any events for your application.

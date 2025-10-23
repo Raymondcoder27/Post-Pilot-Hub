@@ -113,7 +113,8 @@ class SocialAuthController extends Controller
     public function handleTikTokCallback() {
         try {
             $user = Socialite::driver('tiktok')->user();
-            return redirect(config('app.frontend_url').'/dashboard?connected=tiktok');
+            // return redirect(config('app.frontend_url').'/dashboard?connected=tiktok');
+            return redirect(config('app.frontend_url').'/publish?connected=tiktok');
         } catch (Exception $e) {
             return redirect(config('app.frontend_url').'/dashboard?error=tiktok');
         }
